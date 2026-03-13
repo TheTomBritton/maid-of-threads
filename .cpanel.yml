@@ -28,7 +28,5 @@ deployment:
     - /bin/mkdir -p $DEPLOYPATH/site/assets/cache
     - /bin/mkdir -p $DEPLOYPATH/site/assets/logs
     - /bin/mkdir -p $DEPLOYPATH/site/assets/sessions
-    # Set permissions
-    - find $DEPLOYPATH -type d -exec chmod 755 {} \;
-    - find $DEPLOYPATH -type f -exec chmod 644 {} \;
+    # Set permissions (only on site directory — wire/vendor ship with correct perms)
     - chmod -R 755 $DEPLOYPATH/site/assets/
