@@ -1,0 +1,18 @@
+[
+    { "name": "home", "label": "Homepage", "fields": ["title", "body", "summary", "featured_image", "seo_title", "seo_description"], "noChildren": false, "noParents": true, "urlSegments": false, "tags": "core" },
+    { "name": "basic-page", "label": "Basic Page", "fields": ["title", "body", "summary", "featured_image", "images", "seo_title", "seo_description"], "noChildren": false, "noParents": false, "urlSegments": false, "tags": "core" },
+    { "name": "shop", "label": "Shop", "fields": ["title", "body", "summary", "seo_title", "seo_description"], "noChildren": false, "noParents": true, "allowedChildTemplates": ["product-category"], "urlSegments": false, "tags": "shop" },
+    { "name": "product-category", "label": "Product Category", "fields": ["title", "body", "summary", "featured_image", "seo_title", "seo_description"], "noChildren": false, "noParents": false, "allowedParentTemplates": ["shop"], "allowedChildTemplates": ["product"], "urlSegments": false, "tags": "shop" },
+    { "name": "product", "label": "Product", "fields": ["title", "body", "summary", "featured_image", "product_gallery", "product_price", "product_sku", "product_weight", "product_stock", "product_in_stock", "product_category", "related_products", "product_features", "seo_title", "seo_description"], "noChildren": true, "noParents": false, "allowedParentTemplates": ["product-category"], "urlSegments": false, "tags": "shop" },
+    { "name": "cart", "label": "Cart", "fields": ["title", "body"], "noChildren": true, "noParents": true, "urlSegments": false, "tags": "shop" },
+    { "name": "checkout", "label": "Checkout", "fields": ["title", "body"], "noChildren": true, "noParents": true, "urlSegments": false, "tags": "shop" },
+    { "name": "order-confirmation", "label": "Order Confirmation", "fields": ["title", "body"], "noChildren": true, "noParents": true, "urlSegments": false, "tags": "shop" },
+    { "name": "blog-index", "label": "Blog Index", "fields": ["title", "body", "summary", "seo_title", "seo_description"], "noChildren": false, "noParents": true, "allowedChildTemplates": ["blog-post"], "urlSegments": true, "tags": "blog" },
+    { "name": "blog-post", "label": "Blog Post", "fields": ["title", "date", "body", "summary", "featured_image", "blog_categories", "blog_tags", "seo_title", "seo_description"], "noChildren": true, "noParents": false, "allowedParentTemplates": ["blog-index"], "sortfield": "-date", "urlSegments": false, "tags": "blog" },
+    { "name": "blog-category", "label": "Blog Category", "fields": ["title", "body", "summary", "featured_image", "seo_title", "seo_description"], "noChildren": true, "noParents": false, "urlSegments": false, "tags": "blog" },
+    { "name": "blog-tag", "label": "Blog Tag", "fields": ["title"], "noChildren": true, "noParents": false, "urlSegments": false, "tags": "blog" },
+    { "name": "blog-rss", "label": "Blog RSS Feed", "fields": ["title"], "noChildren": true, "noParents": true, "noPrependTemplateFile": true, "noAppendTemplateFile": true, "contentType": "xml", "urlSegments": false, "tags": "blog" },
+    { "name": "contact", "label": "Contact", "fields": ["title", "body", "summary", "seo_title", "seo_description"], "noChildren": true, "noParents": true, "urlSegments": false, "tags": "core" },
+    { "name": "search", "label": "Search", "fields": ["title"], "noChildren": true, "noParents": true, "urlSegments": false, "tags": "core" },
+    { "name": "legal-page", "label": "Legal Page", "fields": ["title", "body", "summary", "seo_title", "seo_description"], "noChildren": true, "noParents": false, "urlSegments": false, "tags": "core" }
+]

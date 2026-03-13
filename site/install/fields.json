@@ -1,0 +1,184 @@
+[
+    {
+        "name": "body",
+        "type": "FieldtypeTextarea",
+        "label": "Body Content",
+        "description": "Main page content. Supports rich text formatting.",
+        "required": false,
+        "columnWidth": 100,
+        "tags": "core",
+        "inputfieldClass": "InputfieldCKEditor",
+        "settings": { "rows": 15, "contentType": 1 }
+    },
+    {
+        "name": "summary",
+        "type": "FieldtypeTextarea",
+        "label": "Summary",
+        "description": "Brief description used in listings and as default meta description. Keep under 160 characters.",
+        "required": false,
+        "columnWidth": 100,
+        "tags": "core",
+        "settings": { "rows": 3, "maxlength": 300, "contentType": 0 }
+    },
+    {
+        "name": "featured_image",
+        "type": "FieldtypeImage",
+        "label": "Featured Image",
+        "description": "Primary image for this page.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "core",
+        "settings": { "maxFiles": 1, "extensions": "jpg jpeg png gif webp", "maxWidth": 4096, "maxHeight": 4096, "outputFormat": 0 }
+    },
+    {
+        "name": "images",
+        "type": "FieldtypeImage",
+        "label": "Image Gallery",
+        "description": "Additional images for this page. Drag to reorder.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "core",
+        "settings": { "maxFiles": 0, "extensions": "jpg jpeg png gif webp", "maxWidth": 4096, "maxHeight": 4096, "outputFormat": 0 }
+    },
+    {
+        "name": "seo_title",
+        "type": "FieldtypeText",
+        "label": "SEO Title",
+        "description": "Custom title for search engines. Keep under 60 characters.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "seo",
+        "settings": { "maxlength": 70 }
+    },
+    {
+        "name": "seo_description",
+        "type": "FieldtypeTextarea",
+        "label": "SEO Description",
+        "description": "Custom meta description for search engines. Keep under 160 characters.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "seo",
+        "settings": { "rows": 2, "maxlength": 170, "contentType": 0 }
+    },
+    {
+        "name": "date",
+        "type": "FieldtypeDatetime",
+        "label": "Publication Date",
+        "description": "When this content was published.",
+        "required": true,
+        "columnWidth": 50,
+        "tags": "blog",
+        "settings": { "dateOutputFormat": "j F Y", "dateInputFormat": "Y-m-d", "defaultToday": 1 }
+    },
+    {
+        "name": "blog_categories",
+        "type": "FieldtypePage",
+        "label": "Categories",
+        "description": "Assign one or more categories to this post.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "blog",
+        "settings": { "derefAsPage": 0, "inputfield": "InputfieldAsmSelect", "parent_id": "/blog-categories/", "template_id": "blog-category", "labelFieldName": "title" }
+    },
+    {
+        "name": "blog_tags",
+        "type": "FieldtypePage",
+        "label": "Tags",
+        "description": "Add tags to help readers find related content.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "blog",
+        "settings": { "derefAsPage": 0, "inputfield": "InputfieldPageAutocomplete", "parent_id": "/blog-tags/", "template_id": "blog-tag", "labelFieldName": "title", "addable": 1 }
+    },
+    {
+        "name": "product_price",
+        "type": "FieldtypeFloat",
+        "label": "Price (£)",
+        "description": "Product price in GBP, inclusive of VAT.",
+        "required": true,
+        "columnWidth": 25,
+        "tags": "shop",
+        "settings": { "precision": 2 }
+    },
+    {
+        "name": "product_sku",
+        "type": "FieldtypeText",
+        "label": "SKU",
+        "description": "Unique product identifier.",
+        "required": false,
+        "columnWidth": 25,
+        "tags": "shop",
+        "settings": { "maxlength": 64 }
+    },
+    {
+        "name": "product_weight",
+        "type": "FieldtypeFloat",
+        "label": "Weight (kg)",
+        "description": "Product weight for shipping calculations.",
+        "required": false,
+        "columnWidth": 25,
+        "tags": "shop",
+        "settings": { "precision": 3 }
+    },
+    {
+        "name": "product_stock",
+        "type": "FieldtypeInteger",
+        "label": "Stock Quantity",
+        "description": "Number of items in stock. Set to 0 for unlimited.",
+        "required": false,
+        "columnWidth": 25,
+        "tags": "shop",
+        "settings": { "defaultValue": 0 }
+    },
+    {
+        "name": "product_in_stock",
+        "type": "FieldtypeToggle",
+        "label": "In Stock",
+        "description": "Whether this product is available for purchase.",
+        "required": false,
+        "columnWidth": 25,
+        "tags": "shop",
+        "settings": { "defaultValue": 1 }
+    },
+    {
+        "name": "product_gallery",
+        "type": "FieldtypeImage",
+        "label": "Product Gallery",
+        "description": "Additional product photos beyond the featured image.",
+        "required": false,
+        "columnWidth": 100,
+        "tags": "shop",
+        "settings": { "maxFiles": 0, "extensions": "jpg jpeg png gif webp", "maxWidth": 4096, "maxHeight": 4096, "outputFormat": 0 }
+    },
+    {
+        "name": "product_category",
+        "type": "FieldtypePage",
+        "label": "Product Categories",
+        "description": "Assign this product to one or more categories.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "shop",
+        "settings": { "derefAsPage": 0, "inputfield": "InputfieldAsmSelect", "parent_id": "/shop/", "template_id": "product-category", "labelFieldName": "title" }
+    },
+    {
+        "name": "related_products",
+        "type": "FieldtypePage",
+        "label": "Related Products",
+        "description": "Manually select related products for cross-selling.",
+        "required": false,
+        "columnWidth": 50,
+        "tags": "shop",
+        "settings": { "derefAsPage": 0, "inputfield": "InputfieldPageAutocomplete", "template_id": "product", "labelFieldName": "title" }
+    },
+    {
+        "name": "product_features",
+        "type": "FieldtypeTextarea",
+        "label": "Product Features",
+        "description": "Key features or specifications. Supports rich text.",
+        "required": false,
+        "columnWidth": 100,
+        "tags": "shop",
+        "inputfieldClass": "InputfieldCKEditor",
+        "settings": { "rows": 8, "contentType": 1 }
+    }
+]

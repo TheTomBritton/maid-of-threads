@@ -1,0 +1,23 @@
+{
+    "name": "maid-of-threads/shop",
+    "description": "Maid of Threads — online shop built on ProcessWire",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "processwire/processwire": "^3.0",
+        "stripe/stripe-php": "^13.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php -r \"if (!is_dir('site/assets/files')) mkdir('site/assets/files', 0755, true);\"",
+            "@php -r \"if (!is_dir('site/assets/cache')) mkdir('site/assets/cache', 0755, true);\"",
+            "@php -r \"if (!is_dir('site/assets/logs')) mkdir('site/assets/logs', 0755, true);\"",
+            "@php -r \"if (!is_dir('site/assets/sessions')) mkdir('site/assets/sessions', 0755, true);\""
+        ]
+    }
+}

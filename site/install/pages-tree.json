@@ -1,0 +1,22 @@
+[
+    { "name": "about", "title": "About Maid of Threads", "template": "basic-page", "parent": "/", "status": "published", "sort": 1, "content": { "summary": "Discover the story behind Maid of Threads — our passion for quality textiles and craftsmanship.", "body": "<p>About page content goes here.</p>" } },
+    { "name": "shop", "title": "Shop", "template": "shop", "parent": "/", "status": "published", "sort": 2, "content": { "summary": "Browse our full collection of handcrafted textile products." } },
+    { "name": "new-arrivals", "title": "New Arrivals", "template": "product-category", "parent": "/shop/", "status": "published", "sort": 1, "content": { "summary": "The latest additions to our collection." } },
+    { "name": "accessories", "title": "Accessories", "template": "product-category", "parent": "/shop/", "status": "published", "sort": 2, "content": { "summary": "Scarves, bags, and handcrafted accessories." } },
+    { "name": "homeware", "title": "Homeware", "template": "product-category", "parent": "/shop/", "status": "published", "sort": 3, "content": { "summary": "Cushions, throws, and textile homeware." } },
+    { "name": "gifts", "title": "Gifts", "template": "product-category", "parent": "/shop/", "status": "published", "sort": 4, "content": { "summary": "Thoughtful gifts for every occasion." } },
+    { "name": "blog", "title": "Blog", "template": "blog-index", "parent": "/", "status": "published", "sort": 3, "content": { "summary": "News, inspiration, and behind-the-scenes stories from Maid of Threads." } },
+    { "name": "blog-categories", "title": "Blog Categories", "template": "basic-page", "parent": "/", "status": "hidden", "sort": 90 },
+    { "name": "news", "title": "News", "template": "blog-category", "parent": "/blog-categories/", "status": "published", "sort": 1, "content": { "summary": "Company news and announcements." } },
+    { "name": "inspiration", "title": "Inspiration", "template": "blog-category", "parent": "/blog-categories/", "status": "published", "sort": 2, "content": { "summary": "Creative ideas and styling tips." } },
+    { "name": "behind-the-scenes", "title": "Behind the Scenes", "template": "blog-category", "parent": "/blog-categories/", "status": "published", "sort": 3, "content": { "summary": "A look at how our products are made." } },
+    { "name": "blog-tags", "title": "Blog Tags", "template": "basic-page", "parent": "/", "status": "hidden", "sort": 91 },
+    { "name": "contact", "title": "Contact", "template": "contact", "parent": "/", "status": "published", "sort": 4, "content": { "summary": "Get in touch with Maid of Threads.", "body": "<p>Have a question about an order, or want to discuss a custom commission? Drop us a message and we'll get back to you as soon as we can.</p>" } },
+    { "name": "search", "title": "Search", "template": "search", "parent": "/", "status": "hidden", "sort": 92 },
+    { "name": "cart", "title": "Shopping Cart", "template": "cart", "parent": "/", "status": "hidden", "sort": 93 },
+    { "name": "checkout", "title": "Checkout", "template": "checkout", "parent": "/", "status": "hidden", "sort": 94 },
+    { "name": "order-confirmation", "title": "Order Confirmation", "template": "order-confirmation", "parent": "/", "status": "hidden", "sort": 95 },
+    { "name": "privacy-policy", "title": "Privacy Policy", "template": "legal-page", "parent": "/", "status": "published", "sort": 5, "content": { "summary": "How we collect, use, and protect your personal data.", "body": "<p>Privacy policy content goes here.</p>" } },
+    { "name": "terms-and-conditions", "title": "Terms & Conditions", "template": "legal-page", "parent": "/", "status": "published", "sort": 6, "content": { "summary": "Terms and conditions for purchasing from Maid of Threads.", "body": "<p>Terms and conditions content goes here.</p>" } },
+    { "name": "blog-rss", "title": "Blog RSS Feed", "template": "blog-rss", "parent": "/", "status": "hidden", "sort": 96 }
+]

@@ -1,0 +1,128 @@
+name: Deploy Maid of Threads
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Only one deploy at a time — cancel in-progress runs
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Build & Push Deploy Branch
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ────────────────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── PHP + Composer ──────────────────────────────────────
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.json') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      # ── Node + Build ────────────────────────────────────────
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Build production assets
+        run: npm run build
+
+      # ── Assemble deploy directory ───────────────────────────
+      - name: Assemble production files
+        run: |
+          PW_ROOT=vendor/processwire/processwire
+
+          mkdir -p deploy/site/templates
+          mkdir -p deploy/site/assets/dist
+          mkdir -p deploy/site/modules
+
+          # PW core (from Composer vendor dir)
+          cp -R $PW_ROOT/wire deploy/wire
+
+          # Vendor (Composer autoload + Stripe SDK)
+          cp -R vendor deploy/vendor
+
+          # Strip docs that contain example API keys (triggers GitHub secret scanning)
+          find deploy/vendor -name "*.md" -delete
+          find deploy/vendor -name "CHANGELOG*" -delete
+          find deploy/vendor -name "LICENSE*" -delete
+
+          # Root PW files
+          for f in index.php; do
+            if [ -f "$PW_ROOT/$f" ]; then
+              cp "$PW_ROOT/$f" deploy/
+            elif [ -f "deploy-files/$f" ]; then
+              cp "deploy-files/$f" deploy/
+            else
+              echo "MISSING: $f"
+            fi
+          done
+
+          # .htaccess — use project deploy copy
+          if [ -f "deploy-files/.htaccess" ]; then
+            cp deploy-files/.htaccess deploy/.htaccess
+          elif [ -f "$PW_ROOT/htaccess.txt" ]; then
+            cp "$PW_ROOT/htaccess.txt" deploy/.htaccess
+          fi
+
+          # NOTE: config.php is NOT deployed — managed manually on server.
+
+          # Templates
+          cp -R site/templates/* deploy/site/templates/
+
+          # Built assets
+          cp -R site/assets/dist/* deploy/site/assets/dist/
+
+          # Modules (if any)
+          if [ -d "site/modules" ] && [ "$(ls -A site/modules)" ]; then
+            cp -R site/modules/* deploy/site/modules/
+          fi
+
+          # .cpanel.yml goes in the repo root
+          cp .cpanel.yml deploy/.cpanel.yml
+
+          echo "Deploy package assembled:"
+          du -sh deploy/
+
+      # ── Push to deploy branch ───────────────────────────────
+      - name: Push to deploy branch
+        run: |
+          cd deploy
+
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git checkout -b deploy
+          git add -A
+          git commit -m "Deploy $(date -u '+%Y-%m-%d %H:%M:%S UTC') from ${GITHUB_SHA::8}"
+
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push --force origin deploy

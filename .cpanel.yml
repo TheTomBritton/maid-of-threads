@@ -1,0 +1,34 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/tombrit1/demo.maidinthreads.tombritton.co.uk
+    # Copy PW core (remove first to avoid cp -R nesting bug)
+    - rm -rf $DEPLOYPATH/wire
+    - /bin/cp -R wire $DEPLOYPATH/wire
+    # Copy vendor (Composer autoload + Stripe SDK)
+    - rm -rf $DEPLOYPATH/vendor
+    - /bin/cp -R vendor $DEPLOYPATH/vendor
+    # Copy root files
+    - /bin/cp index.php $DEPLOYPATH/index.php
+    - /bin/cp .htaccess $DEPLOYPATH/.htaccess
+    # Ensure site directory exists (config.php is managed manually on server)
+    - /bin/mkdir -p $DEPLOYPATH/site
+    # Copy templates (remove first so updates always take effect)
+    - rm -rf $DEPLOYPATH/site/templates
+    - /bin/cp -R site/templates $DEPLOYPATH/site/templates
+    # Copy built assets
+    - rm -rf $DEPLOYPATH/site/assets/dist
+    - /bin/mkdir -p $DEPLOYPATH/site/assets/dist
+    - /bin/cp -R site/assets/dist/* $DEPLOYPATH/site/assets/dist/
+    # Copy modules
+    - /bin/mkdir -p $DEPLOYPATH/site/modules
+    - test -d site/modules && rm -rf $DEPLOYPATH/site/modules && /bin/cp -R site/modules $DEPLOYPATH/site/modules || true
+    # Ensure PW runtime directories exist
+    - /bin/mkdir -p $DEPLOYPATH/site/assets/files
+    - /bin/mkdir -p $DEPLOYPATH/site/assets/cache
+    - /bin/mkdir -p $DEPLOYPATH/site/assets/logs
+    - /bin/mkdir -p $DEPLOYPATH/site/assets/sessions
+    # Set permissions
+    - find $DEPLOYPATH -type d -exec chmod 755 {} \;
+    - find $DEPLOYPATH -type f -exec chmod 644 {} \;
+    - chmod -R 755 $DEPLOYPATH/site/assets/
