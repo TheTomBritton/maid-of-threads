@@ -14,8 +14,56 @@ permissions:
   contents: write
 
 jobs:
+  # ── Quality Gate ─────────────────────────────────────────
+  test:
+    name: Test & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: PHP syntax check
+        run: |
+          ERRORS=0
+          for f in site/templates/*.php; do
+            if ! php -l "$f" > /dev/null 2>&1; then
+              php -l "$f"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+          if [ $ERRORS -gt 0 ]; then
+            echo "::error::$ERRORS PHP file(s) have syntax errors"
+            exit 1
+          fi
+          echo "All PHP files pass syntax check"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -s site/assets/dist/app.css || { echo "::error::app.css not found or empty"; exit 1; }
+          test -s site/assets/dist/app.js || { echo "::error::app.js not found or empty"; exit 1; }
+          echo "Build output verified"
+
+  # ── Deploy (only runs if tests pass) ─────────────────────
   deploy:
     name: Build & Push Deploy Branch
+    needs: test
     runs-on: ubuntu-latest
 
     steps:

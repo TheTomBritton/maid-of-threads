@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/tombrit1/demo.maidinthreads.tombritton.co.uk
+    - export DEPLOYPATH=/home/tombrit1/demo.maidofthreads.tombritton.co.uk
     # Copy PW core (remove first to avoid cp -R nesting bug)
     - rm -rf $DEPLOYPATH/wire
     - /bin/cp -R wire $DEPLOYPATH/wire
