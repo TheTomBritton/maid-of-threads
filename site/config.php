@@ -46,7 +46,7 @@ if ($isLocal) {
 } else {
     // Production — update with your domain
     $config->httpHosts = [
-        'demo.maidinthreads.tombritton.co.uk',
+        'demo.maidofthreads.tombritton.co.uk',
         'www.maidofthreads.co.uk', 'maidofthreads.co.uk',
         'www.maidofthreads.com', 'maidofthreads.com',
     ];
